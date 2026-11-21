@@ -50,7 +50,7 @@ a{color:#ffe28a}
 <body>
 <div id="celebration" aria-hidden="true"></div>
 <main>
-<div id="music-header"><span>🎧 Festival-Sound</span><button id="start-music" type="button">Neugierige klicken hier</button></div>
+<div id="music-header"><button id="start-music" type="button">Neugierige klicken hier</button></div>
 <div class="kicker">Level 30 freigeschaltet 🎉</div>
 <h1>Rätsel geschafft...!</h1>
 <p>Alles Gute zum 30. Geburtstag, Simon! 🥳</p>
@@ -86,7 +86,7 @@ a{color:#ffe28a}
   if(buttonUsed)return;
   buttonUsed=true;
   startMusic();
-  musicButton.textContent='🎵 Musik gestartet';
+  musicButton.textContent='...du wolltest es so';
   musicButton.disabled=true;
   musicButton.setAttribute('aria-disabled','true');
  });
