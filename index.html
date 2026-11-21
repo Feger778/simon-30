@@ -3,22 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#151326">
+<meta name="theme-color" content="#100d22">
 <title>Simon wird 30! 🎉</title>
 <style>
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#fff;background:radial-gradient(ellipse at 15% 10%,#563078 0,transparent 42%),radial-gradient(ellipse at 85% 80%,#155c70 0,transparent 42%),linear-gradient(145deg,#100f20,#21152f 55%,#111827);display:grid;place-items:center;padding:28px;overflow-x:hidden}
-body:before,body:after{content:"✦  ·  ✧   ·   ✦";position:fixed;color:#f9d66b88;font-size:clamp(24px,5vw,52px);letter-spacing:1.5rem;pointer-events:none}body:before{top:7%;left:5%;transform:rotate(-12deg)}body:after{bottom:7%;right:3%;transform:rotate(12deg)}
-main{width:min(760px,100%);text-align:center;padding:clamp(28px,6vw,64px) clamp(22px,6vw,58px);border:1px solid #ffffff28;border-radius:28px;background:#ffffff0d;backdrop-filter:blur(12px);box-shadow:0 25px 90px #0007;position:relative}
-.kicker{letter-spacing:.25em;text-transform:uppercase;font-size:.76rem;color:#f8d778;font-weight:800}.age{font-size:clamp(6rem,22vw,11rem);line-height:.95;font-weight:1000;letter-spacing:-.09em;margin:14px 0;color:#ffe28a;text-shadow:0 8px 45px #ffb52a55}
-.hero{width:100%;max-height:330px;object-fit:cover;border-radius:18px;margin:26px 0 12px;border:1px solid #ffffff35;box-shadow:0 14px 40px #0008}.credit{font-size:.75rem;color:#c9c3d4;margin:0 0 18px}.credit a{color:#ffe28a}h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.05;margin:0 0 18px}p{line-height:1.65;color:#eee9f5;font-size:1.08rem}.gift{margin:30px 0;padding:24px;border-radius:20px;background:linear-gradient(120deg,#ffcf6a22,#ed76b922);border:1px solid #f9d77866}.gift strong{display:block;font-size:clamp(1.35rem,4vw,2rem);color:#ffe28a;margin:8px 0}.emoji{font-size:2rem}.from{margin-top:30px;font-weight:700;color:#ffe28a}.small{font-size:.85rem;color:#c9c3d4;margin-top:26px}a{color:#ffe28a}
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#fff;background:radial-gradient(ellipse at 12% 8%,#5b267d 0,transparent 40%),radial-gradient(ellipse at 88% 75%,#075c76 0,transparent 42%),linear-gradient(145deg,#090817,#21112f 55%,#101827);display:grid;place-items:center;padding:28px;overflow-x:hidden}
+main{width:min(820px,100%);text-align:center;padding:clamp(26px,5vw,56px) clamp(20px,5vw,54px);border:1px solid #ffffff30;border-radius:28px;background:#100d25c9;backdrop-filter:blur(12px);box-shadow:0 25px 90px #0009;position:relative;z-index:2}
+.kicker{letter-spacing:.2em;text-transform:uppercase;font-size:.76rem;color:#f8d778;font-weight:850}
+h1{font-size:clamp(2.1rem,7vw,4.2rem);line-height:1.03;margin:12px 0 14px;text-shadow:0 0 32px #ffcf6a55}
+.age{font-size:clamp(6rem,21vw,10rem);line-height:.9;font-weight:1000;letter-spacing:-.09em;margin:4px 0 16px;color:#ffe28a;text-shadow:0 8px 48px #ffb52a77}
+.hero{display:block;width:100%;height:clamp(220px,42vw,360px);object-fit:cover;object-position:center 55%;border-radius:20px;margin:24px 0 18px;border:1px solid #ffffff35;box-shadow:0 14px 42px #0009}
+p{line-height:1.65;color:#eee9f5;font-size:1.08rem}
+.gift{margin:28px 0;padding:24px;border-radius:20px;background:linear-gradient(120deg,#ffcf6a22,#ed76b922);border:1px solid #f9d77877}
+.gift strong{display:block;font-size:clamp(1.35rem,4vw,2rem);color:#ffe28a;margin:8px 0}
+.emoji{font-size:2rem}
+.from{margin-top:28px;font-weight:750;color:#ffe28a}
+.small{font-size:.88rem;color:#c9c3d4;margin-top:22px}
+a{color:#ffe28a}
+#celebration{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:3}
+.confetti{position:absolute;top:-24px;width:8px;height:14px;opacity:.9;border-radius:2px;animation:fall linear forwards}
+.rocket{position:absolute;bottom:-35px;width:5px;height:20px;border-radius:50% 50% 2px 2px;background:linear-gradient(#fff,#ffcf55 55%,#ff613d);box-shadow:0 0 12px #ffbd59;animation:launch 1.25s ease-out forwards}
+.spark{position:absolute;width:5px;height:5px;border-radius:50%;animation:burst 850ms ease-out forwards;box-shadow:0 0 8px currentColor}
+@keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.15}}
+@keyframes launch{0%{transform:translateY(0);opacity:1}85%{opacity:1}100%{transform:translateY(-75vh);opacity:0}}
+@keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--x),var(--y)) scale(.15);opacity:0}}
+@media(prefers-reduced-motion:reduce){.confetti,.rocket,.spark{animation-duration:1ms!important;animation-iteration-count:1!important}}
 </style>
 </head>
 <body>
+<div id="celebration" aria-hidden="true"></div>
 <main>
-<div class="kicker">Heute wird gefeiert · Festivalmodus an</div>
-<div class="age">30</div>\n<img class="hero" src="https://commons.wikimedia.org/wiki/Special:FilePath/Live_music_performance_at_a_summer_festival_with_energetic_crowd_and_talented_musicians_on_stage.jpg?width=1600" alt="Liveband auf einer Festivalbühne bei Nacht mit Publikum und bunten Lichtern">\n<p class="credit">Festivalfoto: Shixart1985 · <a href="https://commons.wikimedia.org/wiki/File:Live_music_performance_at_a_summer_festival_with_energetic_crowd_and_talented_musicians_on_stage.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a> · unverändert</p>
-<h1>Alles Gute zum Geburtstag, Simon! 🥳</h1>
-<p>30 Jahre – das muss ordentlich gefeiert werden!<br>Auf viele weitere unvergessliche Momente, gute Menschen und Nächte, die in Erinnerung bleiben.</p>
+<div class="kicker">Level 30 freigeschaltet 🎉</div>
+<h1>Rätsel geschafft...!</h1>
+<p>Alles Gute zum 30. Geburtstag, Simon! 🥳</p>
+<div class="age">30</div>
+<img class="hero" src="https://images.pexels.com/photos/7192861/pexels-photo-7192861.jpeg?cs=srgb&dl=pexels-bence-szemerey-337043-7192861.jpg&fm=jpg" alt="Nächtliches Open-Air-Electronic-Festival mit DJ-Bühne, Lichtshow und feiernder Menge">
+<p>30 Jahre – das muss ordentlich gefeiert werden! Auf viele weitere unvergessliche Momente, gute Menschen und Nächte, die in Erinnerung bleiben.</p>
 <section class="gift">
 <div class="emoji">🎪 🎶 🍻</div>
 <div class="kicker">Dein Geschenk</div>
@@ -26,7 +47,42 @@ main{width:min(760px,100%);text-align:center;padding:clamp(28px,6vw,64px) clamp(
 <p>Beim <a href="https://www.sanhejmo.com/" target="_blank" rel="noopener">San Hejmo Festival</a> heißt es: Musik an, Alltag aus und gemeinsam anstoßen!</p>
 </section>
 <p class="from">Von Emma, Stefan &amp; Valentin ❤️</p>
-<p class="small">Wir wünschen dir einen legendären Geburtstag und ganz viel Spaß beim Einlösen!</p>
+<p class="small">Wir wünschen dir einen legendären Geburtstag und ganz viel Spaß beim Einlösen! 🚀</p>
 </main>
+<script>
+(() => {
+ const layer=document.getElementById('celebration');
+ const colors=['#ffdf70','#ff6b8a','#71e7ff','#c69bff','#8df0b2','#ffffff'];
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduced)return;
+ function confetti(){
+  const el=document.createElement('i');el.className='confetti';
+  el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];
+  el.style.setProperty('--drift',(Math.random()*180-90)+'px');
+  el.style.animationDuration=(4+Math.random()*5)+'s';
+  el.style.transform='rotate('+Math.random()*360+'deg)';
+  layer.appendChild(el);setTimeout(()=>el.remove(),9500);
+ }
+ function rocket(){
+  const x=8+Math.random()*84;
+  const el=document.createElement('i');el.className='rocket';el.style.left=x+'vw';
+  layer.appendChild(el);
+  setTimeout(()=>{
+   el.remove();
+   for(let i=0;i<24;i++){
+    const s=document.createElement('i');s.className='spark';s.style.left=x+'vw';s.style.bottom=(24+Math.random()*52)+'vh';
+    s.style.color=colors[Math.floor(Math.random()*colors.length)];
+    const a=Math.PI*2*i/24,dist=35+Math.random()*75;
+    s.style.setProperty('--x',Math.cos(a)*dist+'px');s.style.setProperty('--y',Math.sin(a)*dist+'px');
+    layer.appendChild(s);setTimeout(()=>s.remove(),900);
+   }
+  },1200);
+ }
+ for(let i=0;i<45;i++)setTimeout(confetti,i*75);
+ setInterval(confetti,150);
+ setInterval(rocket,1800);
+ setTimeout(rocket,400);
+})();
+</script>
 </body>
 </html>
