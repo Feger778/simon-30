@@ -28,6 +28,7 @@ a{color:#ffe28a}
 @keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.15}}
 @keyframes launch{0%{transform:translateY(0);opacity:1}85%{opacity:1}100%{transform:translateY(-75vh);opacity:0}}
 @keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--x),var(--y)) scale(.15);opacity:0}}
+@keyframes burstConfetti{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--spin));opacity:0}}
 @media(prefers-reduced-motion:reduce){.confetti,.rocket,.spark{animation-duration:1ms!important;animation-iteration-count:1!important}}
 </style>
 </head>
@@ -68,13 +69,27 @@ a{color:#ffe28a}
   const el=document.createElement('i');el.className='rocket';el.style.left=x+'vw';
   layer.appendChild(el);
   setTimeout(()=>{
+   const burstY=75;
    el.remove();
+   // Leuchtende Funken und zusätzlich eine Konfettiwolke am Explosionspunkt
    for(let i=0;i<24;i++){
-    const s=document.createElement('i');s.className='spark';s.style.left=x+'vw';s.style.bottom=(24+Math.random()*52)+'vh';
+    const s=document.createElement('i');s.className='spark';s.style.left=x+'vw';s.style.bottom=burstY+'vh';
     s.style.color=colors[Math.floor(Math.random()*colors.length)];
     const a=Math.PI*2*i/24,dist=35+Math.random()*75;
     s.style.setProperty('--x',Math.cos(a)*dist+'px');s.style.setProperty('--y',Math.sin(a)*dist+'px');
     layer.appendChild(s);setTimeout(()=>s.remove(),900);
+   }
+   for(let i=0;i<42;i++){
+    const c=document.createElement('i');c.className='confetti';
+    c.style.left=x+'vw';c.style.top='auto';c.style.bottom=burstY+'vh';
+    c.style.width=(5+Math.random()*6)+'px';c.style.height=(8+Math.random()*9)+'px';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    const a=Math.PI*2*Math.random(),dist=55+Math.random()*125;
+    c.style.setProperty('--x',Math.cos(a)*dist+'px');
+    c.style.setProperty('--y',-Math.abs(Math.sin(a)*dist)-Math.random()*65+'px');
+    c.style.setProperty('--spin',(Math.random()*900-450)+'deg');
+    c.style.animation='burstConfetti '+(1.1+Math.random()*.8)+'s ease-out forwards';
+    layer.appendChild(c);setTimeout(()=>c.remove(),2100);
    }
   },1200);
  }
