@@ -30,10 +30,30 @@ a{color:#ffe28a}
 @keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--x),var(--y)) scale(.15);opacity:0}}
 @keyframes burstConfetti{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--spin));opacity:0}}
 @media(prefers-reduced-motion:reduce){.confetti,.rocket,.spark{animation-duration:1ms!important;animation-iteration-count:1!important}}
+#music-popup{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:22px;background:#070512df;backdrop-filter:blur(9px)}
+.popup-card{width:min(440px,100%);padding:30px 24px;border:1px solid #ffe28a99;border-radius:24px;text-align:center;background:linear-gradient(145deg,#26143d,#10172a);box-shadow:0 0 45px #ffcf6a55,0 22px 70px #000b;animation:popupPulse 1.8s ease-in-out infinite}
+.popup-card h2{margin:0 0 10px;color:#ffe28a;font-size:clamp(1.6rem,6vw,2.2rem)}
+.popup-card p{margin:8px 0 20px}
+#start-music{border:0;border-radius:999px;padding:15px 24px;font:800 1.05rem system-ui;color:#20132a;background:linear-gradient(90deg,#ffe28a,#ff9b70);box-shadow:0 0 24px #ffcf6a77;cursor:pointer;animation:buttonGlow 1.4s ease-in-out infinite}
+#music-player{position:fixed;width:1px;height:1px;left:-10px;bottom:-10px;opacity:.01;pointer-events:none}
+@keyframes popupPulse{0%,100%{transform:scale(1);box-shadow:0 0 35px #ffcf6a44,0 22px 70px #000b}50%{transform:scale(1.025);box-shadow:0 0 58px #ffcf6a88,0 22px 70px #000b}}
+@keyframes buttonGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.18)}}
+@media(prefers-reduced-motion:reduce){.popup-card,#start-music{animation:none}}
+
 </style>
 </head>
 <body>
 <div id="celebration" aria-hidden="true"></div>
+<div id="music-popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+ <div class="popup-card">
+  <div class="emoji">🎆 🎧 🎉</div>
+  <h2 id="popup-title">Simon, bereit für die Überraschung?</h2>
+  <p>Mach dich bereit für Festival-Vibes, Feuerwerk und deinen Geburtstags-Soundtrack!</p>
+  <button id="start-music" type="button">🎵 Überraschung starten!</button>
+ </div>
+</div>
+<div id="music-player" aria-hidden="true"></div>
+
 <main>
 <div class="kicker">Level 30 freigeschaltet 🎉</div>
 <h1>Rätsel geschafft...!</h1>
@@ -53,6 +73,13 @@ a{color:#ffe28a}
 <script>
 (() => {
  const layer=document.getElementById('celebration');
+ const musicPopup=document.getElementById('music-popup');
+ const musicButton=document.getElementById('start-music');
+ musicButton.addEventListener('click',()=>{
+  const player=document.getElementById('music-player');
+  player.innerHTML='<iframe title="Ikkimel – Fußballmänner" width="1" height="1" src="https://www.youtube-nocookie.com/embed/GGjp18VHwQU?autoplay=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+  musicPopup.remove();
+ });
  const colors=['#ffdf70','#ff6b8a','#71e7ff','#c69bff','#8df0b2','#ffffff'];
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  if(reduced)return;
