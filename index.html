@@ -82,8 +82,8 @@ a{color:#ffe28a}
  function startMusic(){
   player.innerHTML='<iframe title="Verdeckter Musikplayer" src="https://www.youtube-nocookie.com/embed/GGjp18VHwQU?autoplay=1&playsinline=1&controls=0&rel=0" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>';
  }
- // Startversuch zwei Sekunden nach dem Laden; Safari kann Autoplay mit Ton blockieren.
- window.setTimeout(startMusic,2000);
+ // Sofortiger Autostart-Versuch beim Laden; Browser können Ton-Autoplay weiterhin blockieren.
+ startMusic();
  // Falls der Browser blockiert, kann Simon den Start per Tipp auslösen.
  musicButton.addEventListener('click',()=>{
   startMusic();
