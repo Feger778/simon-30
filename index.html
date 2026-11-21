@@ -36,6 +36,7 @@ a{color:#ffe28a}
 #music-header{position:relative;z-index:6;width:100%;margin:0 auto 20px;padding:12px 14px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;border:1px solid #ffe28a66;border-radius:16px;background:#090817ef;box-shadow:0 8px 26px #0007}
 #music-header span{font-size:.9rem;color:#f8e9c3;font-weight:700}
 #start-music{border:0;border-radius:999px;padding:11px 18px;font:800 .95rem system-ui;color:#20132a;background:linear-gradient(90deg,#ffe28a,#ff9b70);box-shadow:0 0 20px #ffcf6a66;cursor:pointer}
+#start-music:disabled{opacity:.58;filter:grayscale(.35);cursor:not-allowed;box-shadow:none}
 #music-footer{width:min(820px,100%);margin:0 auto 10px;display:flex;justify-content:center;align-items:center;padding:8px}
 #music-stage{position:relative;flex:0 0 92px;width:92px;height:52px;border:1px solid #ffe28a77;border-radius:7px;overflow:hidden;background:#000;box-shadow:0 3px 12px #0009}
 #music-player{position:absolute;inset:0}
@@ -74,15 +75,20 @@ a{color:#ffe28a}
  const layer=document.getElementById('celebration');
  const musicButton=document.getElementById('start-music');
  const player=document.getElementById('music-player');
+ let buttonUsed=false;
  function startMusic(){
   player.innerHTML='<iframe title="Verdeckter Musikplayer" src="https://www.youtube-nocookie.com/embed/GGjp18VHwQU?autoplay=1&playsinline=1&controls=0&rel=0" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>';
  }
  // Sofortiger Autostart-Versuch beim Laden; Browser können Ton-Autoplay weiterhin blockieren.
  startMusic();
- // Falls der Browser blockiert, kann Simon den Start per Tipp auslösen.
+ // Der Button ist ein einmaliger Fallback und wird nach dem ersten Klick dauerhaft deaktiviert.
  musicButton.addEventListener('click',()=>{
+  if(buttonUsed)return;
+  buttonUsed=true;
   startMusic();
-  musicButton.textContent='🎵 Start erneut versuchen';
+  musicButton.textContent='🎵 Musik gestartet';
+  musicButton.disabled=true;
+  musicButton.setAttribute('aria-disabled','true');
  });
  const colors=['#ffdf70','#ff6b8a','#71e7ff','#c69bff','#8df0b2','#ffffff'];
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
