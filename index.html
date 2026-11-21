@@ -29,6 +29,9 @@ a{color:#ffe28a}
 @keyframes launch{0%{transform:translateY(0);opacity:1}85%{opacity:1}100%{transform:translateY(-75vh);opacity:0}}
 @keyframes burst{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--x),var(--y)) scale(.15);opacity:0}}
 @keyframes burstConfetti{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--spin));opacity:0}}
+.click-confetti{position:absolute;width:7px;height:11px;border-radius:2px;pointer-events:none;animation:clickBurst 950ms cubic-bezier(.12,.72,.25,1) forwards}
+@keyframes clickBurst{0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--spin)) scale(.35);opacity:0}}
+
 @media(prefers-reduced-motion:reduce){.confetti,.rocket,.spark{animation-duration:1ms!important;animation-iteration-count:1!important}}
 #music-header{position:relative;z-index:6;width:100%;margin:0 auto 20px;padding:12px 14px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;border:1px solid #ffe28a66;border-radius:16px;background:#090817ef;box-shadow:0 8px 26px #0007}
 #music-header span{font-size:.9rem;color:#f8e9c3;font-weight:700}
@@ -88,6 +91,26 @@ a{color:#ffe28a}
  });
  const colors=['#ffdf70','#ff6b8a','#71e7ff','#c69bff','#8df0b2','#ffffff'];
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ // Jeder Klick löst direkt an der Klickposition eine kleine Konfettiexplosion aus.
+ if(!reduced){
+  document.addEventListener('click',(event)=>{
+   const rect=layer.getBoundingClientRect();
+   const x=event.clientX-rect.left, y=event.clientY-rect.top;
+   for(let i=0;i<28;i++){
+    const bit=document.createElement('i');
+    bit.className='click-confetti';
+    bit.style.left=x+'px';bit.style.top=y+'px';
+    bit.style.background=colors[Math.floor(Math.random()*colors.length)];
+    const angle=Math.PI*2*i/28+(Math.random()-.5)*.35;
+    const distance=35+Math.random()*75;
+    bit.style.setProperty('--x',Math.cos(angle)*distance+'px');
+    bit.style.setProperty('--y',Math.sin(angle)*distance+'px');
+    bit.style.setProperty('--spin',(Math.random()*720-360)+'deg');
+    layer.appendChild(bit);
+    window.setTimeout(()=>bit.remove(),1000);
+   }
+  });
+ }
  if(reduced)return;
  function confetti(){
   const el=document.createElement('i');el.className='confetti';
